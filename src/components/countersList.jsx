@@ -17,13 +17,36 @@ const CountersList = () => {
     };
     const handleReset = () => {
         setCounters(initialState);
-        console.log("handle reset");
     };
+    const handleIncrement = (id) => {
+        const newCounters = counters.map(counter => {
+            if (counter.id === id) {
+                counter.value += 1;
+            }
+            return counter;
+        });
+        setCounters(newCounters);
+    }
+    const handleDecrement = (id) => {
+        const newCounters = counters.map(counter => {
+            if (counter.id === id) {
+                counter.value -= 1;
+            }
+            return counter;
+        });
+        setCounters(newCounters);
+    }
 
     return (
         <>
             {counters.map((count) => (
-                <Counter key={count.id} onDelete={handleDelete} {...count} />
+                <Counter
+                    key={count.id}
+                    onDelete={handleDelete}
+                    onIncrement={handleIncrement}
+                    onDecrement={handleDecrement}
+                    {...count}
+                />
             ))}
             <button
                 className='btn btn-primary btn-sm m-2'
